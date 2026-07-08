@@ -1,0 +1,3 @@
+=== REPORTE AUTOMATIZADO DE QA ===
+
+ ¡BUG ENCONTRADO! La orden por $120.00 no tiene un ID de usuario válido.
