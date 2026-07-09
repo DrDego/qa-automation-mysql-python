@@ -32,3 +32,16 @@ Simulación del flujo crítico de un usuario (*User Journey*) dentro de un porta
    playwright install
    ```
 3. Ejecuta `python prueba_conexion.py` para la prueba de datos o `python prueba_web.py` para la prueba del navegador.
+---
+---
+
+## Proyecto 3: Data Generation & Load Testing (Python + Faker + MySQL)
+
+### El escenario en el q trabaja es sobre negocio
+Simulación de pruebas de carga masiva en el Backend. El objetivo es inyectar de forma segura múltiples perfiles de usuarios realistas para estresar la base de datos o preparar entornos de pruebas automatizadas (*Test Data Setup*).
+
+### Detalles Técnicos de este escenario
+* **Librerías adicionales:** `Faker` configurada con localización colombiana (`es_CO`).
+* **Lógica:** Implementación de un ciclo iterativo `for` que genera estructuras de datos dinámicas en memoria.
+* **Persistencia:** Uso del método `.commit()` para consolidar la inserción de 20 tuplas de manera síncrona en MySQL de forma atómica.
+* **Resultado:** Población exitosa de tablas en un segundo sin violar restricciones de integridad del servidor.
