@@ -47,10 +47,10 @@ Simulación de pruebas de carga masiva en el Backend. El objetivo es inyectar de
 * **Resultado:** Población exitosa de tablas en un segundo sin violar restricciones de integridad del servidor.
 ## Proyecto 3: API Automated Testing (Python + Requests + Pytest)
 
-### 🎯 El escenario en el que trabaja es sobre negocio
+###  El escenario en el que trabaja es sobre negocio
 Simulación de pruebas de integración y validación de endpoints (Backend) consumiendo servicios REST para garantizar que la comunicación con el servidor sea correcta y segura ante peticiones del cliente.
 
-### 🛠️ Detalles técnicos de este escenario
+###  Detalles técnicos de este escenario
 * **Herramientas:** `requests` para el manejo de peticiones HTTP y `Faker` para la inyección de payloads dinámicos.
 * **Estrategia de Datos:** Uso de `Faker('es_CO')` para generar datos de usuario realistas (nombre, username, email) en tiempo de ejecución, evitando usar datos fijos (Hardcoded).
 * **Framework de Testing:** Estructurado completamente bajo los estándares de **Pytest** utilizando aserciones (`assert`) nativas.
