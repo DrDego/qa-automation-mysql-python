@@ -1,69 +1,52 @@
 #Portafolio de Automatización QA Híbrido (Backend & Frontend)
-Este repositorio reúne soluciones automatizadas de nivel profesional utilizando **Python** como lenguaje principal. Demuestra la capacidad de auditar datos lógicos detrás de escena y de simular interacciones de usuarios reales directamente en la interfaz gráfica.
----
-##  Proyecto 1: Backend Testing (Python + MySQL)
 
-### El escenario en el q trabaja es sobre negocio
-La regla del negocio estipula que: *"Toda orden de compra registrada con un monto mayor a $100 debe estar vinculada obligatoriamente a un ID de usuario registrado y válido."*
-
-### Detalles Técnicos de este escenario
-* **Conector:** `mysql-connector-python`
-* **Lógica:** Implementación de un enfoque **LEFT JOIN** priorizando la tabla de órdenes para extraer registros masivos.
-* **Resultado:** El script detectó de forma autónoma una orden huérfana (Monto: $120.00, Usuario: `None`), exportando una alerta estructurada al archivo `reporte_bugs.txt`.
----
-## Proyecto 2: Frontend E2E UI Testing (Python + Playwright)
-
-### El escenario en el q trabaja es sobre negocio
-Simulación del flujo crítico de un usuario (*User Journey*) dentro de un portal de comercio electrónico: Iniciar sesión con credenciales válidas y validar el acceso correcto al catálogo de productos de la empresa.
-
-### Detalles Técnicos de este escenario
-* **Herramientas:** Playwright de Microsoft (`playwright.sync_api`).
-* **Navegador utilizado:** Chromium (Headless=False, slow_mo=1000ms para auditoría visual).
-* **Estrategia de Localizadores:** Uso de Selectores ID avanzados de CSS (`input#user-name`, `input#password`, `input#login-button`).
-* **Validación de QA:** Verificación de la visibilidad y coincidencia de texto en el elemento del título de la interfaz gráfica (`.title`).
-* **Resultado:** Flujo completado con éxito, guardando evidencia fotográfica en el archivo `evidencia_login_exitoso.png`.
----
-## Cómo ejecutar los proyectos de forma local?
-
-1. Clona este repositorio.
-2. Instala las dependencias necesarias de Python:
-   ```bash
-   pip install mysql-connector-python playwright
-   playwright install
-   ```
-3. Ejecuta `python prueba_conexion.py` para la prueba de datos o `python prueba_web.py` para la prueba del navegador.
----
----
-
-## Proyecto 4: Data Generation & Load Testing (Python + Faker + MySQL)
-
-### El escenario en el q trabaja es sobre negocio
-Simulación de pruebas de carga masiva en el Backend. El objetivo es inyectar de forma segura múltiples perfiles de usuarios realistas para estresar la base de datos o preparar entornos de pruebas automatizadas (*Test Data Setup*).
-
-### Detalles Técnicos de este escenario
-* **Librerías adicionales:** `Faker` configurada con localización colombiana (`es_CO`).
-* **Lógica:** Implementación de un ciclo iterativo `for` que genera estructuras de datos dinámicas en memoria.
-* **Persistencia:** Uso del método `.commit()` para consolidar la inserción de 20 tuplas de manera síncrona en MySQL de forma atómica.
-* **Resultado:** Población exitosa de tablas en un segundo sin violar restricciones de integridad del servidor.
-## Proyecto 3: API Automated Testing (Python + Requests + Pytest)
-
-###  El escenario en el que trabaja es sobre negocio
-Simulación de pruebas de integración y validación de endpoints (Backend) consumiendo servicios REST para garantizar que la comunicación con el servidor sea correcta y segura ante peticiones del cliente.
-
-###  Detalles técnicos de este escenario
-* **Herramientas:** `requests` para el manejo de peticiones HTTP y `Faker` para la inyección de payloads dinámicos.
-* **Estrategia de Datos:** Uso de `Faker('es_CO')` para generar datos de usuario realistas (nombre, username, email) en tiempo de ejecución, evitando usar datos fijos (Hardcoded).
-* **Framework de Testing:** Estructurado completamente bajo los estándares de **Pytest** utilizando aserciones (`assert`) nativas.
-* **Tipos de Pruebas Incluidas:**
-  * **Happy Path (Test Positivo):** Validación de creación exitosa de usuarios mediante peticiones `POST`, asegurando un código de estado HTTP `201 Created` y verificando la integridad del JSON de respuesta.
-  * **Negative Testing (Test Negativo):** Validación de control de errores mediante peticiones `GET` a recursos inexistentes, asegurando que el servidor responda con un código `404 Not Found`.
+Este repositorio reúne soluciones automatizadas de nivel profesional utilizando **Python** como lenguaje principal. Demuestra la capacidad de auditar datos lógicos detrás de escena, validar la comunicación con servidores mediante APIs y simular interacciones de usuarios reales utilizando patrones de diseño avanzados en la interfaz gráfica.
 
 ---
 
-##Cómo ejecutar los proyectos de forma local?
+##Estructura del Proyecto
+* `pages/`: Módulos basados en el patrón de diseño Page Object Model (POM).
+* `tests/`: Suite unificada de pruebas automatizadas (API y UI Web).
+
+---
+
+##Proyecto 1: Data Generation & Audit (Python + MySQL + Faker)
+
+###El escenario de negocio
+Simulación de pruebas de carga masiva en el Backend. El objetivo es inyectar de forma segura múltiples perfiles de usuarios realistas para estresar la base de datos o preparar entornos de prueba (**Test Data Setup**). Además, incluye scripts de auditoría lógica (`LEFT JOIN`) para detectar inconsistencias (como órdenes huérfanas sin usuario).
+
+* **Librerías:** `mysql-connector-python`, `Faker` (configurado para `es_CO`).
+* **Resultado:** Población exitosa de tablas en segundos y exportación autónoma de anomalías en el archivo `reporte_bugs.txt`.
+
+---
+
+##Proyecto 2: Frontend E2E Testing (Playwright + Pytest + POM)
+
+###El escenario de negocio
+Simulación del flujo crítico de un usuario (*User Journey*) dentro de un portal de comercio electrónico: Iniciar sesión con credenciales válidas y validar el acceso correcto al catálogo de productos de la empresa de forma automatizada.
+
+* **Herramientas:** Playwright de Microsoft (`pytest-playwright`).
+* **Arquitectura:** Implementación del patrón de diseño **Page Object Model (POM)**. Los selectores CSS avanzados y las acciones de la interfaz se aislaron en la clase `LoginPage`, garantizando un código limpio, legible y fácil de mantener si la UI cambia en el futuro.
+* **Resultado:** Flujo completado con éxito, controlando el navegador de forma limpia e interactiva.
+
+---
+
+##Proyecto 3: API Automated Testing (Requests + Pytest)
+
+###El escenario de negocio
+Suite de pruebas de integración en el Backend consumiendo servicios REST para garantizar que la comunicación del servidor y los códigos de respuesta HTTP sean correctos ante las peticiones del cliente.
+
+* **Herramientas:** `requests` para peticiones HTTP y `Pytest` como framework central de aserciones.
+* **Estrategia de Pruebas:**
+  * **Happy Path (Test Positivo):** Envío de un payload dinámico con Faker (`POST`), asegurando un código de estado `201 Created` y validando la integridad del ID retornado.
+  * **Negative Testing (Test Negativo):** Validación de control de errores mediante peticiones `GET` a recursos inexistentes, asegurando que el servidor responda correctamente con un `404 Not Found`.
+
+---
+
+##Cómo ejecutar la suite completa de forma local
 
 1. Clona este repositorio.
 2. Instala las dependencias necesarias de Python:
 ```bash
-pip install mysql-connector-python playwright requests faker pytest
+pip install mysql-connector-python playwright requests faker pytest pytest-playwright
 playwright install
